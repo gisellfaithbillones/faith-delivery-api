@@ -1,0 +1,21 @@
+services:
+  faithcoffee-db:
+    image: mysql:8.0.25
+    container_name: faithcoffee-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./docker/database/data:/var/lib/mysql
+    networks:
+      - faithcoffee-network
+
+networks:
+  faithcoffee-network:
+    driver: bridge
